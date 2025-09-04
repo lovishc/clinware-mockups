@@ -107,7 +107,7 @@
         }
         .loader {
             border: 2px solid var(--pf-t--color--gray--10);
-            border-top: 2px solid var(--cw-purple-40);
+            border-top: 2px solid #095d7e;
             border-radius: 50%;
             width: 16px;
             height: 16px;
@@ -122,9 +122,9 @@
             --cw-blue-30: var(--pf-t--color--blue--30);
             --cw-blue-40: var(--pf-t--color--blue--40);
             --cw-blue-50: var(--pf-t--color--blue--50);
-            --cw-purple-30: var(--pf-t--color--purple--30);
-            --cw-purple-40: var(--pf-t--color--purple--40);
-            --cw-purple-50: var(--pf-t--color--purple--50);
+            --cw-purple-30: #095d7e;
+            --cw-purple-40: #095d7e;
+            --cw-purple-50: #095d7e;
             --cw-teal-30: var(--pf-t--color--teal--30);
             --cw-teal-40: var(--pf-t--color--teal--40);
             --cw-teal-50: var(--pf-t--color--teal--50);
@@ -162,6 +162,7 @@
         .text-indigo-700 { color: var(--cw-purple-50) !important; }
         .bg-indigo-600 { background-color: var(--cw-purple-40) !important; }
         .hover\:bg-indigo-700:hover { background-color: var(--cw-purple-50) !important; }
+        .border-indigo-500 { border-color: #095d7e !important; }
         .focus\:ring-indigo-500:focus { --tw-ring-color: var(--cw-purple-40) !important; }
         .peer-focus\:ring-indigo-300:focus { --tw-ring-color: var(--cw-purple-30) !important; }
         .focus\:ring-red-500:focus { --tw-ring-color: var(--cw-red-30) !important; }
@@ -196,9 +197,11 @@
         .text-orange-700 { color: var(--cw-orange-50) !important; }
         .bg-gray-500 { background-color: var(--cw-gray-50) !important; }
         .bg-gray-400 { background-color: var(--cw-gray-40) !important; }
+        .bg-red-500 { background-color: #e2fcd6 !important; }
+        .bg-purple-500 { background-color: #095d7e !important; }
         /* Toggle switch overrides */
         .toggle-bg { background-color: var(--cw-gray-20); }
-        input:checked + .toggle-bg { background-color: var(--cw-purple-40); }
+        input:checked + .toggle-bg { background-color: #095d7e; }
     </style>
 </head>
 <body class="text-gray-800">
