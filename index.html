@@ -37,7 +37,17 @@
         /* Linked Tab/Card experiment */
         .card-linked {
             position: relative;
-            transition: border-color 300ms ease-in-out, box-shadow 300ms ease-in-out, transform 150ms ease;
+            transition: all 400ms cubic-bezier(0.23, 1, 0.320, 1);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05)) !important;
+            backdrop-filter: blur(30px) saturate(180%) !important;
+            -webkit-backdrop-filter: blur(30px) saturate(180%) !important;
+            border-radius: 2rem !important;
+            border: 1px solid rgba(255, 255, 255, 0.1) !important;
+            box-shadow: 
+                0 12px 40px 0 rgba(0, 0, 0, 0.12),
+                0 4px 24px 0 rgba(0, 0, 0, 0.08),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2),
+                inset 0 -1px 0 rgba(255, 255, 255, 0.05) !important;
         }
         .card-bookmark {
             position: absolute;
@@ -74,12 +84,27 @@
         }
         .hover-linked {
             border-color: var(--link-color, var(--pf-t--color--purple--40));
-            box-shadow: 0 1px 6px rgba(0,0,0,0.06);
-            transform: translateY(-1px);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.08)) !important;
+            backdrop-filter: blur(35px) saturate(200%) !important;
+            -webkit-backdrop-filter: blur(35px) saturate(200%) !important;
+            box-shadow: 
+                0 20px 60px 0 rgba(0, 0, 0, 0.18),
+                0 8px 32px 0 rgba(0, 0, 0, 0.12),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3),
+                inset 0 -1px 0 rgba(255, 255, 255, 0.08) !important;
+            transform: translateY(-4px) scale(1.02);
         }
         .card-linked:hover {
             border-color: var(--link-color, var(--pf-t--color--purple--40));
-            box-shadow: 0 1px 6px rgba(0,0,0,0.06);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.08)) !important;
+            backdrop-filter: blur(35px) saturate(200%) !important;
+            -webkit-backdrop-filter: blur(35px) saturate(200%) !important;
+            box-shadow: 
+                0 20px 60px 0 rgba(0, 0, 0, 0.18),
+                0 8px 32px 0 rgba(0, 0, 0, 0.12),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3),
+                inset 0 -1px 0 rgba(255, 255, 255, 0.08) !important;
+            transform: translateY(-4px) scale(1.02);
         }
         .tab-linked {
             border-bottom-color: var(--link-color, var(--pf-t--color--purple--40)) !important;
@@ -197,8 +222,39 @@
         .text-orange-700 { color: var(--cw-orange-50) !important; }
         .bg-gray-500 { background-color: var(--cw-gray-50) !important; }
         .bg-gray-400 { background-color: var(--cw-gray-40) !important; }
-        .bg-red-500 { background-color: #e2fcd6 !important; }
+        .bg-red-500 { background-color: #bceba5 !important; }
         .bg-purple-500 { background-color: #095d7e !important; }
+      
+        .glass-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05)) !important;
+            backdrop-filter: blur(30px) saturate(180%) !important;
+            -webkit-backdrop-filter: blur(30px) saturate(180%) !important;
+            border-radius: 2rem !important;
+            border: 1px solid rgba(255, 255, 255, 0.1) !important;
+            box-shadow: 
+                0 12px 40px 0 rgba(0, 0, 0, 0.12),
+                0 4px 24px 0 rgba(0, 0, 0, 0.08),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2),
+                inset 0 -1px 0 rgba(255, 255, 255, 0.05) !important;
+        }
+        
+      
+        .bg-white {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05)) !important;
+            backdrop-filter: blur(30px) saturate(180%) !important;
+            -webkit-backdrop-filter: blur(30px) saturate(180%) !important;
+            border: 1px solid rgba(255, 255, 255, 0.1) !important;
+            box-shadow: 
+                0 12px 40px 0 rgba(0, 0, 0, 0.12),
+                0 4px 24px 0 rgba(0, 0, 0, 0.08),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2),
+                inset 0 -1px 0 rgba(255, 255, 255, 0.05) !important;
+        }
+        
+       
+        .rounded-lg {
+            border-radius: 2rem !important;
+        }
         /* Toggle switch overrides */
         .toggle-bg { background-color: var(--cw-gray-20); }
         input:checked + .toggle-bg { background-color: #095d7e; }
@@ -485,7 +541,7 @@
                     <!-- Scenario Cards -->
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <!-- Conservative (compact) -->
-                        <div class="bg-white p-3 rounded-lg border border-gray-200 shadow-sm flex flex-col h-full border-l-4 border-gray-300">
+                        <div class="glass-card p-3 border border-gray-200 shadow-sm flex flex-col h-full border-l-4 border-gray-300">
                             <div class="flex items-center justify-between mb-1">
                                 <h3 class="text-sm font-semibold text-gray-800">Conservative</h3>
                                 <span class="text-[11px] text-gray-500">Daily</span>
@@ -503,7 +559,7 @@
                             </div>
                         </div>
                         <!-- Potential (compact) -->
-                        <div class="bg-white p-3 rounded-lg border border-green-200 shadow-sm flex flex-col h-full border-l-4 border-green-500">
+                        <div class="glass-card p-3 border border-green-200 shadow-sm flex flex-col h-full border-l-4 border-green-500">
                             <div class="flex items-center justify-between mb-1">
                                 <h3 class="text-sm font-semibold text-green-700">Potential</h3>
                                 <span class="text-[11px] text-gray-500">Daily</span>
@@ -527,11 +583,11 @@
                     <!-- Actionable Insights removed per request -->
                     <!-- Component Cards -->
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        <div class="bg-white p-5 rounded-lg border border-gray-200 shadow-sm flex flex-col justify-between"><div><h4 class="font-bold text-gray-900 flex items-center"><span class="w-2 h-2 rounded-full bg-blue-500 mr-2"></span><span class="w-2 h-2 rounded-full bg-purple-500 mr-2"></span>Physical & Occupational Therapy</h4><p class="text-sm text-gray-600 mt-2">Primary Driver: <span class="font-medium text-gray-800">Acute Infections</span></p></div><div class="mt-4"><p class="text-xs text-gray-500 font-medium">CMI Range</p><div class="w-full rounded-full h-3 mt-2 flex overflow-hidden"><div class="bg-blue-600 h-3" style="width: 34.74%"></div><div class="bg-blue-300 h-3" style="width: 65.26%"></div></div><div class="flex justify-between text-xs text-gray-500 mt-1"><span class="font-bold text-blue-700">0.74 <span class="font-normal">(Conservative)</span></span><span class="font-bold">2.13 <span class="font-normal">(Potential)</span></span></div></div></div>
-                        <div class="bg-white p-5 rounded-lg border border-gray-200 shadow-sm flex flex-col justify-between"><div><h4 class="font-bold text-gray-900 flex items-center"><span class="w-2 h-2 rounded-full bg-teal-500 mr-2"></span>Speech-Language Pathology</h4><p class="text-sm text-gray-600 mt-2">Drivers: <span class="font-medium text-gray-800">Acute Neurologic, Cognitive Impairment</span></p></div><div class="mt-4"><p class="text-xs text-gray-500 font-medium">CMI Range</p><div class="w-full rounded-full h-3 mt-2 flex overflow-hidden"><div class="bg-teal-500 h-3" style="width: 57.78%"></div><div class="bg-teal-300 h-3" style="width: 42.22%"></div></div><div class="flex justify-between text-xs text-gray-500 mt-1"><span class="font-bold text-teal-700">1.93 <span class="font-normal">(Conservative)</span></span><span class="font-bold">3.34 <span class="font-normal">(Potential)</span></span></div></div></div>
-                        <div class="bg-white p-5 rounded-lg border border-gray-200 shadow-sm flex flex-col justify-between"><div><h4 class="font-bold text-gray-900 flex items-center"><span class="w-2 h-2 rounded-full bg-pink-500 mr-2"></span>Nursing</h4><p class="text-sm text-gray-600 mt-2">Driver: <span class="font-medium text-gray-800">copd shortness breath, diabetes insulin</span></p><p class="text-xs text-gray-500 mt-1">Path: <span class="bg-gray-100 rounded px-1.5 py-0.5">Special Care High</span><span class="text-gray-400">&rarr;</span><span class="bg-gray-100 rounded px-1.5 py-0.5">No Depression</span><span class="text-gray-400">&rarr;</span><strong class="bg-pink-100 text-pink-700 rounded px-1.5 py-0.5">HDE2</strong></p></div><div class="mt-4"><p class="text-xs text-gray-500 font-medium">Fixed CMI</p><div class="w-full rounded-full h-3 mt-2 flex overflow-hidden bg-pink-500"></div><div class="text-center text-xs text-gray-500 mt-1"><span class="font-bold text-pink-700">2.27</span></div></div></div>
-                        <div class="bg-white p-5 rounded-lg border border-gray-200 shadow-sm flex flex-col justify-between"><div><h4 class="font-bold text-gray-900 flex items-center"><span class="w-2 h-2 rounded-full bg-orange-500 mr-2"></span>Non-Therapy Ancillary</h4><p class="text-sm text-gray-600 mt-2">Current Points: <span class="font-medium text-gray-800">7 (2 to next tier)</span></p></div><div class="mt-4"><p class="text-xs text-gray-500 font-medium">CMI Range</p><div class="w-full rounded-full h-3 mt-2 flex overflow-hidden"><div class="bg-orange-500 h-3" style="width: 56.86%"></div><div class="bg-orange-300 h-3" style="width: 43.14%"></div></div><div class="flex justify-between text-xs text-gray-500 mt-1"><span class="font-bold text-orange-700">1.74 <span class="font-normal">(Current)</span></span><span class="font-bold">3.06 <span class="font-normal">(Max)</span></span></div></div></div>
-                        <div class="bg-white p-5 rounded-lg border border-gray-200 shadow-sm flex flex-col justify-between"><div><h4 class="font-bold text-gray-900 flex items-center"><span class="w-2 h-2 rounded-full bg-gray-500 mr-2"></span>Non-Case-Mix</h4><p class="text-sm text-gray-600 mt-2">Standard Component (Room & Board)</p></div><div class="mt-4"><p class="text-xs text-gray-500 font-medium">Fixed Index</p><div class="w-full rounded-full h-3 mt-2 flex overflow-hidden bg-gray-500"></div><div class="text-center text-xs text-gray-500 mt-1"><span class="font-bold text-gray-700">1.00</span></div></div></div>
+                        <div class="glass-card p-5 border border-gray-200 shadow-sm flex flex-col justify-between"><div><h4 class="font-bold text-gray-900 flex items-center"><span class="w-2 h-2 rounded-full bg-blue-500 mr-2"></span><span class="w-2 h-2 rounded-full bg-purple-500 mr-2"></span>Physical & Occupational Therapy</h4><p class="text-sm text-gray-600 mt-2">Primary Driver: <span class="font-medium text-gray-800">Acute Infections</span></p></div><div class="mt-4"><p class="text-xs text-gray-500 font-medium">CMI Range</p><div class="w-full rounded-full h-3 mt-2 flex overflow-hidden"><div class="bg-blue-600 h-3" style="width: 34.74%"></div><div class="bg-blue-300 h-3" style="width: 65.26%"></div></div><div class="flex justify-between text-xs text-gray-500 mt-1"><span class="font-bold text-blue-700">0.74 <span class="font-normal">(Conservative)</span></span><span class="font-bold">2.13 <span class="font-normal">(Potential)</span></span></div></div></div>
+                        <div class="glass-card p-5 border border-gray-200 shadow-sm flex flex-col justify-between"><div><h4 class="font-bold text-gray-900 flex items-center"><span class="w-2 h-2 rounded-full bg-teal-500 mr-2"></span>Speech-Language Pathology</h4><p class="text-sm text-gray-600 mt-2">Drivers: <span class="font-medium text-gray-800">Acute Neurologic, Cognitive Impairment</span></p></div><div class="mt-4"><p class="text-xs text-gray-500 font-medium">CMI Range</p><div class="w-full rounded-full h-3 mt-2 flex overflow-hidden"><div class="bg-teal-500 h-3" style="width: 57.78%"></div><div class="bg-teal-300 h-3" style="width: 42.22%"></div></div><div class="flex justify-between text-xs text-gray-500 mt-1"><span class="font-bold text-teal-700">1.93 <span class="font-normal">(Conservative)</span></span><span class="font-bold">3.34 <span class="font-normal">(Potential)</span></span></div></div></div>
+                        <div class="glass-card p-5 border border-gray-200 shadow-sm flex flex-col justify-between"><div><h4 class="font-bold text-gray-900 flex items-center"><span class="w-2 h-2 rounded-full bg-pink-500 mr-2"></span>Nursing</h4><p class="text-sm text-gray-600 mt-2">Driver: <span class="font-medium text-gray-800">copd shortness breath, diabetes insulin</span></p><p class="text-xs text-gray-500 mt-1">Path: <span class="bg-gray-100 rounded px-1.5 py-0.5">Special Care High</span><span class="text-gray-400">&rarr;</span><span class="bg-gray-100 rounded px-1.5 py-0.5">No Depression</span><span class="text-gray-400">&rarr;</span><strong class="bg-pink-100 text-pink-700 rounded px-1.5 py-0.5">HDE2</strong></p></div><div class="mt-4"><p class="text-xs text-gray-500 font-medium">Fixed CMI</p><div class="w-full rounded-full h-3 mt-2 flex overflow-hidden bg-pink-500"></div><div class="text-center text-xs text-gray-500 mt-1"><span class="font-bold text-pink-700">2.27</span></div></div></div>
+                        <div class="glass-card p-5 border border-gray-200 shadow-sm flex flex-col justify-between"><div><h4 class="font-bold text-gray-900 flex items-center"><span class="w-2 h-2 rounded-full bg-orange-500 mr-2"></span>Non-Therapy Ancillary</h4><p class="text-sm text-gray-600 mt-2">Current Points: <span class="font-medium text-gray-800">7 (2 to next tier)</span></p></div><div class="mt-4"><p class="text-xs text-gray-500 font-medium">CMI Range</p><div class="w-full rounded-full h-3 mt-2 flex overflow-hidden"><div class="bg-orange-500 h-3" style="width: 56.86%"></div><div class="bg-orange-300 h-3" style="width: 43.14%"></div></div><div class="flex justify-between text-xs text-gray-500 mt-1"><span class="font-bold text-orange-700">1.74 <span class="font-normal">(Current)</span></span><span class="font-bold">3.06 <span class="font-normal">(Max)</span></span></div></div></div>
+                        <div class="glass-card p-5 border border-gray-200 shadow-sm flex flex-col justify-between"><div><h4 class="font-bold text-gray-900 flex items-center"><span class="w-2 h-2 rounded-full bg-gray-500 mr-2"></span>Non-Case-Mix</h4><p class="text-sm text-gray-600 mt-2">Standard Component (Room & Board)</p></div><div class="mt-4"><p class="text-xs text-gray-500 font-medium">Fixed Index</p><div class="w-full rounded-full h-3 mt-2 flex overflow-hidden bg-gray-500"></div><div class="text-center text-xs text-gray-500 mt-1"><span class="font-bold text-gray-700">1.00</span></div></div></div>
 
                     </div>
                     <!-- Rate Composition (moved to bottom) -->
@@ -561,8 +617,8 @@
                 <!-- Diagnosis Panel -->
                 <div id="content-diagnosis" class="tab-content hidden space-y-6">
                      <div class="space-y-6">
-                        <div class="bg-white rounded-lg border-l-4 border-indigo-500 shadow-sm"><div class="p-5"><h3 class="text-lg font-semibold text-indigo-700 mb-3">Primary Diagnosis</h3><div class="editable-container"><div class="flex items-start justify-between"><div><p class="font-medium editable-text">Acute delirium superimposed on presumed Rapidly progressive neurodegenerative condition</p><input type="text" class="hidden border-gray-300 rounded shadow-sm w-full" value="Acute delirium superimposed on presumed Rapidly progressive neurodegenerative condition"><p class="text-xs text-gray-500 mt-1">ICD-10: <span class="font-semibold text-gray-600">B17.0</span> | Category: <span class="font-semibold text-gray-600">Acute Infections</span> | Confidence: <span class="font-semibold text-gray-600">60%</span></p></div><div class="flex items-center space-x-2 ml-4 flex-shrink-0"><button onclick="toggleEdit(this)" class="edit-icon text-gray-400 hover:text-indigo-600"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z" /><path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd" /></svg></button><button onclick="toggleEdit(this)" class="hidden ml-2 text-green-600 hover:text-green-800 text-sm">Save</button></div></div></div></div>
-                        <div class="bg-white p-5 rounded-lg border border-gray-200 shadow-sm">
+                        <div class="glass-card border-l-4 border-indigo-500 shadow-sm"><div class="p-5"><h3 class="text-lg font-semibold text-indigo-700 mb-3">Primary Diagnosis</h3><div class="editable-container"><div class="flex items-start justify-between"><div><p class="font-medium editable-text">Acute delirium superimposed on presumed Rapidly progressive neurodegenerative condition</p><input type="text" class="hidden border-gray-300 rounded shadow-sm w-full" value="Acute delirium superimposed on presumed Rapidly progressive neurodegenerative condition"><p class="text-xs text-gray-500 mt-1">ICD-10: <span class="font-semibold text-gray-600">B17.0</span> | Category: <span class="font-semibold text-gray-600">Acute Infections</span> | Confidence: <span class="font-semibold text-gray-600">60%</span></p></div><div class="flex items-center space-x-2 ml-4 flex-shrink-0"><button onclick="toggleEdit(this)" class="edit-icon text-gray-400 hover:text-indigo-600"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z" /><path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd" /></svg></button><button onclick="toggleEdit(this)" class="hidden ml-2 text-green-600 hover:text-green-800 text-sm">Save</button></div></div></div></div>
+                        <div class="glass-card p-5 border border-gray-200 shadow-sm">
                             <h3 class="text-lg font-semibold text-gray-700 mb-4">Secondary Diagnoses & Comorbidities</h3>
                             <div class="overflow-x-auto">
                                 <table class="w-full text-sm">
@@ -592,7 +648,7 @@
 
                 <!-- Medications Panel -->
                 <div id="content-medications" class="tab-content hidden space-y-6">
-                    <div class="bg-white p-5 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="glass-card p-5 border border-gray-200 shadow-sm">
                         <h3 class="text-lg font-semibold text-gray-900 mb-3">Current Medications</h3>
                         <div class="overflow-x-auto"><table class="w-full text-sm text-left"><thead class="bg-gray-50 text-xs text-gray-700 uppercase"><tr><th class="px-4 py-2">Medication</th><th class="px-4 py-2">Dosage</th><th class="px-4 py-2">Frequency</th><th class="px-4 py-2">Indication</th></tr></thead><tbody><tr class="group"><td class="px-4 py-2 font-medium"><div class="editable-container flex items-center"><span class="editable-text">SINEMET (carbidopa-levodopa)</span><input type="text" class="hidden border-gray-300 rounded shadow-sm" value="SINEMET (carbidopa-levodopa)"><button onclick="toggleEdit(this)" class="ml-2 edit-icon opacity-0 group-hover:opacity-50 hover:opacity-100 text-gray-400 hover:text-indigo-600"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z" /><path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd" /></svg></button><button onclick="toggleEdit(this)" class="hidden ml-2 text-green-600 hover:text-green-800 text-sm">Save</button></div></td><td class="px-4 py-2">25-100 mg</td><td class="px-4 py-2">3x daily</td><td class="px-4 py-2">Parkinsonian features</td></tr><tr class="group"><td class="px-4 py-2 font-medium"><div class="editable-container flex items-center"><span class="editable-text">TRELEGY ELLIPTA</span><input type="text" class="hidden border-gray-300 rounded shadow-sm" value="TRELEGY ELLIPTA"><button onclick="toggleEdit(this)" class="ml-2 edit-icon opacity-0 group-hover:opacity-50 hover:opacity-100 text-gray-400 hover:text-indigo-600"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z" /><path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd" /></svg></button><button onclick="toggleEdit(this)" class="hidden ml-2 text-green-600 hover:text-green-800 text-sm">Save</button></div></td><td class="px-4 py-2">100-62.5-25 mcg</td><td class="px-4 py-2">1x daily</td><td class="px-4 py-2">COPD</td></tr><tr class="group"><td class="px-4 py-2 font-medium"><div class="editable-container flex items-center"><span class="editable-text">LIPITOR (atorvastatin)</span><input type="text" class="hidden border-gray-300 rounded shadow-sm" value="LIPITOR (atorvastatin)"><button onclick="toggleEdit(this)" class="ml-2 edit-icon opacity-0 group-hover:opacity-50 hover:opacity-100 text-gray-400 hover:text-indigo-600"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z" /><path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd" /></svg></button><button onclick="toggleEdit(this)" class="hidden ml-2 text-green-600 hover:text-green-800 text-sm">Save</button></div></td><td class="px-4 py-2">40 mg</td><td class="px-4 py-2">1x daily</td><td class="px-4 py-2">Hyperlipidemia</td></tr></tbody></table></div>
                    </div>
@@ -600,7 +656,7 @@
 
                 <!-- Respiratory Assessment Panel -->
                 <div id="content-respiratory" class="tab-content hidden space-y-6">
-                    <div class="bg-white p-5 rounded-lg border border-gray-200 shadow-sm">
+                    <div class="glass-card p-5 border border-gray-200 shadow-sm">
                         <h3 class="text-lg font-semibold text-gray-900 mb-3">Respiratory Assessment</h3>
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
                             <div class="space-y-1">
