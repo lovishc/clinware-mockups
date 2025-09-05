@@ -295,9 +295,10 @@
         .rounded-lg {
             border-radius: 1.2rem !important;
         }
-        /* Toggle switch overrides */
-        .toggle-bg { background-color: var(--cw-gray-20); }
-        input:checked + .toggle-bg { background-color: #095d7e; }
+         
+         /* Toggle switch overrides */
+         .toggle-bg { background-color: var(--cw-gray-20); }
+         input:checked + .toggle-bg { background-color: #095d7e; }
     </style>
 </head>
 <body class="text-gray-800">
@@ -570,7 +571,7 @@
                             Respiratory Assessment
                         </span>
                     </button>
-                    <button id="tab-admin" onclick="switchTab('admin')" class="tab-btn text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-3 px-1 border-b-2 font-medium text-sm">Administration & History</button>
+                                         <button id="tab-admin" onclick="switchTab('admin')" class="tab-btn text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-3 px-1 border-b-2 font-medium text-sm">Administration & History</button>
                 </nav>
             </div>
 
@@ -738,24 +739,30 @@
     </div>
 
     <script>
-        function switchTab(tabId) {
-            document.querySelectorAll('.tab-btn').forEach(button => { button.classList.remove('tab-active'); button.classList.add('text-gray-500', 'hover:text-gray-700', 'hover:border-gray-300'); });
-            document.querySelectorAll('.tab-content').forEach(content => content.classList.add('hidden'));
-            const activeButton = document.getElementById(`tab-${tabId}`);
-            if(activeButton) { activeButton.classList.add('tab-active'); activeButton.classList.remove('text-gray-500', 'hover:text-gray-700', 'hover:border-gray-300'); }
-            const activeContent = document.getElementById(`content-${tabId}`);
-            if(activeContent) { activeContent.classList.remove('hidden'); }
-            // Sync active state to corresponding summary card
-            try {
-                const keys = ['pdpm','diagnosis','medications','respiratory'];
-                keys.forEach(k => {
-                    const card = document.getElementById(`card-${k}`);
-                    if (card) card.classList.remove('active-linked');
-                });
-                const activeCard = document.getElementById(`card-${tabId}`);
-                if (activeCard) activeCard.classList.add('active-linked');
-            } catch (e) {}
-        }
+                 function switchTab(tabId) {
+             // Only switch if the tab exists and is visible
+             const targetTab = document.getElementById(`tab-${tabId}`);
+             if (!targetTab || targetTab.classList.contains('hidden')) {
+                 return;
+             }
+             
+             document.querySelectorAll('.tab-btn').forEach(button => { button.classList.remove('tab-active'); button.classList.add('text-gray-500', 'hover:text-gray-700', 'hover:border-gray-300'); });
+             document.querySelectorAll('.tab-content').forEach(content => content.classList.add('hidden'));
+             const activeButton = document.getElementById(`tab-${tabId}`);
+             if(activeButton) { activeButton.classList.add('tab-active'); activeButton.classList.remove('text-gray-500', 'hover:text-gray-700', 'hover:border-gray-300'); }
+             const activeContent = document.getElementById(`content-${tabId}`);
+             if(activeContent) { activeContent.classList.remove('hidden'); }
+             // Sync active state to corresponding summary card
+             try {
+                 const keys = ['pdpm','diagnosis','medications','respiratory'];
+                 keys.forEach(k => {
+                     const card = document.getElementById(`card-${k}`);
+                     if (card) card.classList.remove('active-linked');
+                 });
+                 const activeCard = document.getElementById(`card-${tabId}`);
+                 if (activeCard && !activeCard.classList.contains('hidden')) activeCard.classList.add('active-linked');
+             } catch (e) {}
+         }
 
         function navigateTo(tabId) {
             switchTab(tabId);
@@ -781,39 +788,74 @@
         const customizeMenu = document.getElementById('customize-menu');
         const cardCheckboxes = () => Array.from(document.querySelectorAll('#customize-menu input[type="checkbox"][data-card]'));
 
-        function loadCardPreferences() {
-            try {
-                const raw = localStorage.getItem('card-visibility');
-                const prefs = raw ? JSON.parse(raw) : { pdpm: true, diagnosis: true, medications: true, respiratory: true };
-                for (const key of Object.keys(prefs)) {
-                    const el = document.getElementById(`card-${key}`);
-                    if (el) {
-                        el.classList.toggle('hidden', prefs[key] === false);
-                    }
-                }
-                // Hide Clinware Rating if either Medications or Diagnosis card is hidden
-                const rating = document.getElementById('clinware-rating');
-                if (rating) {
-                    const hideRating = prefs['medications'] === false || prefs['diagnosis'] === false;
-                    rating.classList.toggle('hidden', hideRating);
-                }
-                // sync checkboxes
-                cardCheckboxes().forEach(cb => {
-                    const id = cb.getAttribute('data-card');
-                    cb.checked = prefs[id] !== false;
-                });
-            } catch (e) {
-                // noop
-            }
-        }
+                 function loadCardPreferences() {
+             try {
+                 const raw = localStorage.getItem('card-visibility');
+                 const prefs = raw ? JSON.parse(raw) : { pdpm: true, diagnosis: true, medications: true, respiratory: true };
+                 let hasVisibleCards = false;
+                 
+                 for (const key of Object.keys(prefs)) {
+                     const el = document.getElementById(`card-${key}`);
+                     if (el) {
+                         el.classList.toggle('hidden', prefs[key] === false);
+                         if (prefs[key] !== false) hasVisibleCards = true;
+                     }
+                     // Sync corresponding tab
+                     const tab = document.getElementById(`tab-${key}`);
+                     if (tab) {
+                         tab.classList.toggle('hidden', prefs[key] === false);
+                     }
+                 }
+                 
+                 // Hide Admin tab if no cards are visible
+                 const adminTab = document.getElementById('tab-admin');
+                 if (adminTab) {
+                     adminTab.classList.toggle('hidden', !hasVisibleCards);
+                 }
+                 
+                 // Hide Clinware Rating if either Medications or Diagnosis card is hidden
+                 const rating = document.getElementById('clinware-rating');
+                 if (rating) {
+                     const hideRating = prefs['medications'] === false || prefs['diagnosis'] === false;
+                     rating.classList.toggle('hidden', hideRating);
+                 }
+                 // sync checkboxes
+                 cardCheckboxes().forEach(cb => {
+                     const id = cb.getAttribute('data-card');
+                     cb.checked = prefs[id] !== false;
+                 });
+                 // Set first visible card as active
+                 setFirstVisibleCardActive();
+             } catch (e) {
+                 // noop
+             }
+         }
 
-        function saveCardPreferences() {
-            const prefs = {};
-            cardCheckboxes().forEach(cb => {
-                prefs[cb.getAttribute('data-card')] = cb.checked;
-            });
-            localStorage.setItem('card-visibility', JSON.stringify(prefs));
-        }
+                 function saveCardPreferences() {
+             const prefs = {};
+             cardCheckboxes().forEach(cb => {
+                 prefs[cb.getAttribute('data-card')] = cb.checked;
+             });
+             localStorage.setItem('card-visibility', JSON.stringify(prefs));
+         }
+         
+         function setFirstVisibleCardActive() {
+             // Find first visible card and set it as active
+             const visibleCards = document.querySelectorAll('.card-linked:not(.hidden)');
+             if (visibleCards.length > 0) {
+                 const firstCard = visibleCards[0];
+                 const cardId = firstCard.id.replace('card-', '');
+                 switchTab(cardId);
+             } else {
+                 // If no cards visible, hide all content - no active tab
+                 document.querySelectorAll('.tab-btn').forEach(button => { 
+                     button.classList.remove('tab-active'); 
+                     button.classList.add('text-gray-500', 'hover:text-gray-700', 'hover:border-gray-300'); 
+                 });
+                 document.querySelectorAll('.tab-content').forEach(content => content.classList.add('hidden'));
+                 document.querySelectorAll('.card-linked').forEach(card => card.classList.remove('active-linked'));
+             }
+         }
 
         if (customizeBtn && customizeMenu) {
             customizeBtn.addEventListener('click', () => {
@@ -826,24 +868,45 @@
                 }
             });
 
-            document.addEventListener('change', (e) => {
-                const target = e.target;
-                if (target && target.matches('#customize-menu input[type="checkbox"][data-card]')) {
-                    const cardId = target.getAttribute('data-card');
-                    const el = document.getElementById(`card-${cardId}`);
-                    if (el) el.classList.toggle('hidden', !target.checked);
-                    // Update Clinware Rating visibility on toggle
-                    const prefsRaw = localStorage.getItem('card-visibility');
-                    const prefs = prefsRaw ? JSON.parse(prefsRaw) : { pdpm: true, diagnosis: true, medications: true, respiratory: true };
-                    prefs[cardId] = target.checked;
-                    const rating = document.getElementById('clinware-rating');
-                    if (rating) {
-                        const hideRating = prefs['medications'] === false || prefs['diagnosis'] === false;
-                        rating.classList.toggle('hidden', hideRating);
-                    }
-                    saveCardPreferences();
-                }
-            });
+                         document.addEventListener('change', (e) => {
+                 const target = e.target;
+                 if (target && target.matches('#customize-menu input[type="checkbox"][data-card]')) {
+                     const cardId = target.getAttribute('data-card');
+                     const el = document.getElementById(`card-${cardId}`);
+                     if (el) el.classList.toggle('hidden', !target.checked);
+                     
+                     // Sync corresponding tab
+                     const tab = document.getElementById(`tab-${cardId}`);
+                     if (tab) tab.classList.toggle('hidden', !target.checked);
+                     
+                     // Check if any cards are still visible
+                     const visibleCards = document.querySelectorAll('.card-linked:not(.hidden)');
+                     const hasVisibleCards = visibleCards.length > 0;
+                     
+                     // Hide/show Admin tab based on card visibility
+                     const adminTab = document.getElementById('tab-admin');
+                     if (adminTab) {
+                         adminTab.classList.toggle('hidden', !hasVisibleCards);
+                     }
+                     
+                     // Update Clinware Rating visibility on toggle
+                     const prefsRaw = localStorage.getItem('card-visibility');
+                     const prefs = prefsRaw ? JSON.parse(prefsRaw) : { pdpm: true, diagnosis: true, medications: true, respiratory: true };
+                     prefs[cardId] = target.checked;
+                     const rating = document.getElementById('clinware-rating');
+                     if (rating) {
+                         const hideRating = prefs['medications'] === false || prefs['diagnosis'] === false;
+                         rating.classList.toggle('hidden', hideRating);
+                     }
+                     saveCardPreferences();
+                     
+                     // If current active tab was hidden, switch to first visible
+                     const activeTab = document.querySelector('.tab-btn.tab-active');
+                     if (activeTab && activeTab.classList.contains('hidden')) {
+                         setFirstVisibleCardActive();
+                     }
+                 }
+             });
         }
 
         function toggleDetails(row) {
@@ -995,11 +1058,10 @@
         })();
 
 
-        // Set initial tab
-        switchTab('pdpm');
-        loadCardPreferences();
-        updateTabsOffset();
-        window.addEventListener('resize', updateTabsOffset);
+                 // Load preferences first, then set initial tab
+         loadCardPreferences();
+         updateTabsOffset();
+         window.addEventListener('resize', updateTabsOffset);
     </script>
 </body>
 </html>
