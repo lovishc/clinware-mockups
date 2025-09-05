@@ -49,28 +49,18 @@
                 inset 0 1px 0 rgba(255, 255, 255, 0.2),
                 inset 0 -1px 0 rgba(255, 255, 255, 0.05) !important;
         }
-        .card-bookmark {
-            position: absolute;
-            left: -6px;
-            top: 14px;
-            width: 10px;
-            height: 26px;
-            background: var(--link-color, var(--pf-t--color--purple--40));
-            border-top-right-radius: 3px;
-            border-bottom-right-radius: 3px;
-            box-shadow: 0 0 0 1px rgba(0,0,0,0.05) inset;
-        }
-        .card-bookmark::after {
-            content: '';
-            position: absolute;
-            left: 0;
-            bottom: -6px;
-            width: 0;
-            height: 0;
-            border-left: 5px solid transparent;
-            border-right: 5px solid transparent;
-            border-top: 6px solid var(--link-color, var(--pf-t--color--purple--40));
-        }
+                 .card-bookmark {
+             position: absolute;
+             left: -4px;
+             top: 16px;
+             width: 10px;
+             height: 26px;
+             background: var(--link-color, var(--pf-t--color--purple--40));
+             border-top-right-radius: 3px;
+             clip-path: polygon(0 0, 100% 0, 100% 80%, 50% 100%, 0 80%);
+             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+             z-index: 5;
+         }
         
         @keyframes tabPulse {
             0% { transform: scale(1); }
@@ -224,6 +214,56 @@
         .bg-gray-400 { background-color: var(--cw-gray-40) !important; }
         .bg-red-500 { background-color: #bceba5 !important; }
         .bg-purple-500 { background-color: #095d7e !important; }
+        
+        /* Custom Premium Scrollbar Styling */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            margin: 40px 0;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: rgba(150, 150, 150, 0.6);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            min-height: 40px;
+            margin: 20px 0;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(120, 120, 120, 0.8);
+            box-shadow: 0 2px 6px rgba(150, 150, 150, 0.3);
+        }
+        
+        ::-webkit-scrollbar-corner {
+            background: transparent;
+        }
+        
+        /* Firefox scrollbar styling */
+        html {
+            scrollbar-width: thin;
+            scrollbar-color: rgba(150, 150, 150, 0.6) rgba(255, 255, 255, 0.05);
+        }
+        
+        /* Static Diagnosis Cards */
+        .diagnosis-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.06)) !important;
+            backdrop-filter: blur(15px) saturate(120%) !important;
+            -webkit-backdrop-filter: blur(15px) saturate(120%) !important;
+            border-radius: 0.75rem !important;
+            border: 1px solid rgba(255, 255, 255, 0.15) !important;
+            box-shadow: 
+                0 4px 12px 0 rgba(0, 0, 0, 0.05),
+                0 1px 4px 0 rgba(0, 0, 0, 0.03),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2) !important;
+        }
       
         .glass-card {
             background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05)) !important;
@@ -253,7 +293,7 @@
         
        
         .rounded-lg {
-            border-radius: 2rem !important;
+            border-radius: 1.2rem !important;
         }
         /* Toggle switch overrides */
         .toggle-bg { background-color: var(--cw-gray-20); }
@@ -418,18 +458,18 @@
                                     </div>
                                 </div>
                              </div>
-                            <div class="mt-6 grid grid-cols-3 gap-2 text-center">
-                                <div class="p-2 rounded border border-gray-200">
-                                    <p class="text-[10px] text-gray-500">Severe COPD</p>
-                                    <p class="text-sm font-semibold text-gray-900">3</p>
+                            <div class="mt-6 grid grid-cols-3 gap-3 text-center">
+                                <div class="diagnosis-card p-3">
+                                    <p class="text-[10px] font-medium text-gray-600 mb-1">Severe COPD</p>
+                                    <p class="text-sm font-bold text-gray-800">3</p>
                                 </div>
-                                <div class="p-2 rounded border border-gray-200">
-                                    <p class="text-[10px] text-gray-500">Diabetes/insulin</p>
-                                    <p class="text-sm font-semibold text-gray-900">2</p>
+                                <div class="diagnosis-card p-3">
+                                    <p class="text-[10px] font-medium text-gray-600 mb-1">Diabetes/Insulin</p>
+                                    <p class="text-sm font-bold text-gray-800">2</p>
                                 </div>
-                                <div class="p-2 rounded border border-gray-200">
-                                    <p class="text-[10px] text-gray-500">Parenteral/IV</p>
-                                    <p class="text-sm font-semibold text-gray-900">1</p>
+                                <div class="diagnosis-card p-3">
+                                    <p class="text-[10px] font-medium text-gray-600 mb-1">Pancreatitis/IV</p>
+                                    <p class="text-sm font-bold text-gray-800">1</p>
                                 </div>
                             </div>
                                 </button>
