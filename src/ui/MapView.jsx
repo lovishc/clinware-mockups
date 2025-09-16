@@ -1,7 +1,7 @@
 import { GoogleMap, useLoadScript, Marker, DirectionsRenderer } from '@react-google-maps/api'
 import { useCallback, useEffect, useState } from 'react'
 
-const GOOGLE_MAPS_API_KEY = "AIzaSyCzABPuBhxfr8aDGGgW9fu1ddeGpduvx4E" // IMPORTANT: Replace with your actual Google Maps API key
+const GOOGLE_MAPS_API_KEY = "GOOGLE_MAPS_API_KEY" // IMPORTANT: Replace with your actual Google Maps API key
 
 const containerStyle = {
   width: '100%',
