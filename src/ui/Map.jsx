@@ -1,6 +1,6 @@
 import { GoogleMap, useLoadScript, Marker } from '@react-google-maps/api'
 
-const GOOGLE_MAPS_API_KEY = "GOOGLE_MAPS_API_KEY" // IMPORTANT: Replace with your actual Google Maps API key
+const GOOGLE_MAPS_API_KEY = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
 
 const containerStyle = {
   width: '100%',

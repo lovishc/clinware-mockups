@@ -1,6 +1,24 @@
 import { useEffect } from 'react'
+import { useParams, useNavigate } from 'react-router-dom'
 
-export default function PatientDetailsComplete({ patient = { name: 'Patient 3', mrn: '4208211', age: 73, gender: 'F' } }) {
+export default function PatientDetailsComplete({ patient }) {
+  const { patientId } = useParams()
+  const navigate = useNavigate()
+  
+  // Default patient data - in a real app, you'd fetch this based on patientId
+  const defaultPatient = { name: 'Patient 3', mrn: '4208211', age: 73, gender: 'F' }
+  const currentPatient = patient || defaultPatient
+  
+  // Log the patient ID for debugging/development
+  useEffect(() => {
+    if (patientId) {
+      console.log('Scorecard loaded for patient ID:', patientId)
+    }
+  }, [patientId])
+  
+  const handleBackToReferrals = () => {
+    navigate('/referrals')
+  }
   useEffect(() => {
     // Add all the original JavaScript functionality
     const script = document.createElement('script')
@@ -376,6 +394,23 @@ export default function PatientDetailsComplete({ patient = { name: 'Patient 3', 
     </svg>
 
     <div class="bg-gray-50 text-gray-800" style="font-family: 'Inter', sans-serif;">
+      ${patientId ? `
+        <!-- Back Button (only shown when accessed via URL) -->
+        <div class="bg-white border-b border-gray-200">
+          <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-3">
+            <button 
+              onclick="window.history.back()" 
+              class="inline-flex items-center px-3 py-1.5 border border-gray-300 text-gray-700 rounded-md text-sm font-medium hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-colors"
+            >
+              <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+              </svg>
+              Back to Referrals
+            </button>
+          </div>
+        </div>
+      ` : ''}
+      
       <!-- Patient Header (Now scrollable) -->
       <header class="bg-white/80 backdrop-blur-sm border-b border-gray-200">
         <!-- Patient ID & Alerts Bar -->
@@ -383,8 +418,8 @@ export default function PatientDetailsComplete({ patient = { name: 'Patient 3', 
           <div class="grid grid-cols-2 md:grid-cols-3 gap-4 items-center py-3">
             <!-- Left: Patient Info -->
             <div class="md:col-span-1">
-              <h1 class="text-lg font-bold text-gray-900">${patient.name}</h1>
-              <p class="text-sm text-gray-500">MRN: ${patient.mrn} | ${patient.age} / ${patient.gender}</p>
+              <h1 class="text-lg font-bold text-gray-900">${currentPatient.name}</h1>
+              <p class="text-sm text-gray-500">MRN: ${currentPatient.mrn} | ${currentPatient.age} / ${currentPatient.gender}</p>
             </div>
             
             <!-- Center: Clinware Rating -->
@@ -426,7 +461,7 @@ export default function PatientDetailsComplete({ patient = { name: 'Patient 3', 
               🟢 Isolation Required
             </span>
             <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800 border border-yellow-200">
-              ⚠️ Admissible
+              ⚠️ Clinically Capable
             </span>
             <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800 border border-yellow-200">
               ⚠️ Consolidated Billing Exclusion
@@ -1150,7 +1185,7 @@ export default function PatientDetailsComplete({ patient = { name: 'Patient 3', 
                 <svg class="w-4 h-4 text-blue-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                 </svg>
-                <span class="text-sm font-medium text-blue-800">Medication cost source: PruittHealth Pharmacy</span>
+                <span class="text-sm font-medium text-blue-800">Medication cost source: XYZ Pharmacy</span>
               </div>
             </div>
 
@@ -1702,7 +1737,7 @@ export default function PatientDetailsComplete({ patient = { name: 'Patient 3', 
               <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
               </svg>
-              <span>Uploaded By: johndoe@pruitthealth.com</span>
+              <span>Uploaded By: johndoe@xyzhealth.com</span>
             </div>
           </div>
         </div>

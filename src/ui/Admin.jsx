@@ -258,7 +258,7 @@ export default function Admin(){
   
   const tabs = [
     { key: 'users', label: 'Users' },
-    { key: 'capabilities', label: 'Non Admissibles' },
+    { key: 'capabilities', label: 'Clinical Capabilities' },
     { key: 'adjustments', label: 'Adjustments' },
     { key: 'pharmacy', label: 'Pharmacy' },
     { key: 'integrations', label: 'Integrations' }
@@ -308,8 +308,9 @@ export default function Admin(){
           
           {tab === 'capabilities' && (
             <div className="tab-panel">
-              <h3>Non Admissibles</h3>
+              <h3>Clinical Capabilities</h3>
               <p>Define clinical capabilities and non-admissible criteria here.</p>
+              Note: Already present in the actual application.
             </div>
           )}
           
@@ -401,8 +402,8 @@ export default function Admin(){
             <div className="tab-panel">
               <div className="integration-section">
                 <div className="card">
-                  <h4>Pruitt Pharmacy API Integration</h4>
-                  <p>Manage connection to Pruitt Pharmacy for real-time medication costs.</p>
+                  <h4>Custom Pharmacy API Integration</h4>
+                  <p>Manage connection to Custom Pharmacy for real-time medication costs.</p>
 
                   <div style={{ marginTop: '20px' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -418,7 +419,7 @@ export default function Admin(){
                     </div>
                     <div className="form-grid" style={{maxWidth: '500px', marginTop: '16px'}}>
                       <label>Source API URL</label>
-                      <input className="card pad" style={{border:'1px solid #e5e7eb'}} placeholder="e.g., https://api.pruittpharmacy.com/v2/meds"/>
+                      <input className="card pad" style={{border:'1px solid #e5e7eb'}} placeholder="e.g., https://api.custompharmacy.com/v2/meds"/>
                       <label>Client ID</label>
                       <input className="card pad" style={{border:'1px solid #e5e7eb'}} placeholder="e.g., clinware_prod_xyz789"/>
                       <label>Client Secret</label>

@@ -7,6 +7,7 @@ import Facilities from './ui/Facilities.jsx'
 import Referrals from './ui/Referrals.jsx'
 import Analytics from './ui/Analytics.jsx'
 import Admin from './ui/Admin.jsx'
+import PatientDetailsComplete from './ui/PatientDetailsComplete.jsx'
 
 const router = createBrowserRouter([
   {
@@ -16,6 +17,8 @@ const router = createBrowserRouter([
       { index: true, element: <Referrals /> },
       { path: 'facilities', element: <Facilities /> },
       { path: 'referrals', element: <Referrals /> },
+      { path: 'referrals/:patientId', element: <PatientDetailsComplete /> },
+      { path: 'scorecard/:patientId', element: <PatientDetailsComplete /> },
       { path: 'analytics', element: <Analytics /> },
       { path: 'admin', element: <Admin /> }
     ]

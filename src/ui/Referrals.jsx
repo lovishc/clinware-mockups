@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify';
 import { facilities } from '../data/facilities.js'
 import PatientDetailsComplete from './PatientDetailsComplete.jsx'
@@ -202,16 +203,13 @@ function AssignModal({ open, onClose, patient }){
 }
 
 export default function Referrals(){
+  const navigate = useNavigate()
   const [open, setOpen] = useState(false)
-  const [selectedPatient, setSelectedPatient] = useState(null)
   const [patientToAssign, setPatientToAssign] = useState(null)
 
   const handlePatientClick = (patient) => {
-    setSelectedPatient(patient)
-  }
-
-  const handleBackToReferrals = () => {
-    setSelectedPatient(null)
+    // Navigate to the referrals route with patient ID
+    navigate(`/referrals/${patient.id || patient.mrn || 'default'}`)
   }
 
   const handleOpenAssignModal = (patient) => {
@@ -219,42 +217,23 @@ export default function Referrals(){
     setOpen(true)
   }
 
-  // If a patient is selected, show patient details
-  if (selectedPatient) {
-    return (
-      <div>
-        <div style={{ marginBottom: '16px' }}>
-          <button 
-            className="btn" 
-            onClick={handleBackToReferrals}
-            style={{ marginRight: '12px' }}
-          >
-            ← Back to Referrals
-          </button>
-        </div>
-       
-        <PatientDetailsComplete patient={selectedPatient} />
-      </div>
-    )
-  }
-
   return (
     <div>
       <h2 style={{margin:'0 0 12px 0'}}>Referrals</h2>
       <div className="card pad">
         <div style={{overflowX:'auto'}}>
-          <table style={{width:'100%', fontSize:14, borderCollapse:'collapse'}}>
+          <table style={{width:'100%', fontSize:16, borderCollapse:'collapse'}}>
             <thead>
-              <tr style={{textTransform:'uppercase', fontSize:12, color:'#374151', background:'#f8fafc'}}>
+              <tr style={{textTransform:'uppercase', fontSize:14, color:'#374151', background:'#f8fafc'}}>
                 {['Patient Name','Status','Clinware Rating','Facility Name','Daily Profit','Admissible','Processed Date','Actions'].map((h,i)=> (
-                  <th key={i} style={{padding:'8px 12px', textAlign:'left'}}>{h}</th>
+                  <th key={i} style={{padding:'12px 16px', textAlign:'left'}}>{h}</th>
                 ))}
               </tr>
             </thead>
             <tbody>
               {patients.map((r, i)=> (
                 <tr key={i} style={{borderTop:'1px solid #e5e7eb'}}>
-                  <td style={{padding:'8px 12px', fontWeight:600, color:'#1f2937'}}>
+                  <td style={{padding:'12px 16px', fontWeight:600, color:'#1f2937'}}>
                     <button 
                       className="btn" 
                       style={{padding:0, border:'none', background:'transparent', color:'#095d7e', cursor: 'pointer'}}
@@ -263,13 +242,13 @@ export default function Referrals(){
                       {r.name} 
                     </button>
                   </td>
-                  <td style={{padding:'8px 12px'}}>{r.status}</td>
-                  <td style={{padding:'8px 12px'}}>{r.rating}</td>
-                  <td style={{padding:'8px 12px'}}>{r.facility}</td>
-                  <td style={{padding:'8px 12px', color:'#127b43', fontWeight:600}}>{r.profit}</td>
-                  <td style={{padding:'8px 12px'}}>{r.admissible}</td>
-                  <td style={{padding:'8px 12px'}}>{r.date}</td>
-                  <td style={{padding:'8px 12px'}}>
+                  <td style={{padding:'12px 16px'}}>{r.status}</td>
+                  <td style={{padding:'12px 16px'}}>{r.rating}</td>
+                  <td style={{padding:'12px 16px'}}>{r.facility}</td>
+                  <td style={{padding:'12px 16px', color:'#127b43', fontWeight:600}}>{r.profit}</td>
+                  <td style={{padding:'12px 16px'}}>{r.admissible}</td>
+                  <td style={{padding:'12px 16px'}}>{r.date}</td>
+                  <td style={{padding:'12px 16px'}}>
                     {r.actions.includes('Assign') && <button className="btn primary" onClick={()=>handleOpenAssignModal(r)}>Assign</button>}
                     {r.actions.includes('Transfer') && <button className="btn primary" onClick={()=>handleOpenAssignModal(r)} style={{marginRight:8}}>Transfer</button>}
                     {r.actions.includes('…') && <button className="btn">…</button>}
