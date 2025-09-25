@@ -1,9 +1,10 @@
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 
 export default function PatientDetailsComplete({ patient }) {
   const { patientId } = useParams()
   const navigate = useNavigate()
+  const containerRef = useRef(null)
   
   // Default patient data - in a real app, you'd fetch this based on patientId
   const defaultPatient = { name: 'Patient 3', mrn: '4208211', age: 73, gender: 'F' }
@@ -19,6 +20,66 @@ export default function PatientDetailsComplete({ patient }) {
   const handleBackToReferrals = () => {
     navigate('/referrals')
   }
+
+  useEffect(() => {
+    const container = containerRef.current
+    if (container) {
+      const customizeBtn = container.querySelector('#customize-btn')
+      const customizeMenu = container.querySelector('#customize-menu')
+
+      if (customizeBtn && customizeMenu) {
+        const handleCustomizeClick = () => {
+          customizeMenu.classList.toggle('hidden')
+        }
+
+        const handleClickOutside = (event) => {
+          if (!customizeBtn.contains(event.target) && !customizeMenu.contains(event.target)) {
+            customizeMenu.classList.add('hidden')
+          }
+        }
+
+        customizeBtn.addEventListener('click', handleCustomizeClick)
+        document.addEventListener('click', handleClickOutside)
+
+        // Handle card toggles
+        const cardToggles = container.querySelectorAll('#customize-menu input[type="checkbox"]');
+        const toggleListeners = [];
+
+        cardToggles.forEach(toggle => {
+          const cardKey = toggle.dataset.card;
+          const card = container.querySelector('#card-' + cardKey);
+          
+          if (card && !card.classList.contains('hidden')) {
+              toggle.checked = true;
+          }
+
+          const handleChange = () => {
+            const tabButton = container.querySelector('#tab-' + cardKey);
+            // const tabContent = container.querySelector('#content-' + cardKey);
+
+            if (card) {
+              card.classList.toggle('hidden', !toggle.checked);
+            }
+            if (tabButton) {
+              tabButton.classList.toggle('hidden', !toggle.checked);
+            }
+          };
+
+          toggle.addEventListener('change', handleChange);
+          toggleListeners.push({ toggle, handleChange });
+        });
+
+        return () => {
+          customizeBtn.removeEventListener('click', handleCustomizeClick)
+          document.removeEventListener('click', handleClickOutside)
+          toggleListeners.forEach(({ toggle, handleChange }) => {
+            toggle.removeEventListener('change', handleChange);
+          });
+        }
+      }
+    }
+  }, [patientId, patient])
+
   useEffect(() => {
     // Add all the original JavaScript functionality
     const script = document.createElement('script')
@@ -146,6 +207,28 @@ export default function PatientDetailsComplete({ patient }) {
         updateTabsOffset();
       }, 100);
       window.addEventListener('resize', updateTabsOffset);
+      
+      const cardToggles = document.querySelectorAll('#customize-menu input[type="checkbox"]');
+      cardToggles.forEach(toggle => {
+        const cardKey = toggle.dataset.card;
+        const card = document.getElementById('card-' + cardKey);
+        
+        if (card && !card.classList.contains('hidden')) {
+            toggle.checked = true;
+        }
+
+        toggle.addEventListener('change', () => {
+          const tabButton = document.getElementById('tab-' + cardKey);
+          const tabContent = document.getElementById('content-' + cardKey);
+
+          if (card) {
+            card.classList.toggle('hidden', !toggle.checked);
+          }
+          if (tabButton) {
+            tabButton.classList.toggle('hidden', !toggle.checked);
+          }
+        });
+      });
     `
     document.head.appendChild(script)
 
@@ -479,7 +562,7 @@ export default function PatientDetailsComplete({ patient }) {
                   Customize
                   <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 ml-1 text-gray-400" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.24 4.24a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.08z" clip-rule="evenodd"/></svg>
                 </button>
-                <div id="customize-menu" class="hidden absolute right-0 mt-2 w-64 bg-white border border-gray-200 shadow-lg rounded-md p-3 z-10">
+                <div id="customize-menu" class="hidden absolute right-0 mt-2 w-64 bg-white border border-gray-200 shadow-lg rounded-md p-3 z-[1000]">
                   <p class="text-xs font-semibold text-gray-500 mb-2">Show cards</p>
                   <div class="space-y-2 text-sm">
                     <label class="flex items-center justify-between"><span>PDPM Analysis</span><input type="checkbox" data-card="pdpm" class="h-4 w-4 text-indigo-600 border-gray-300 rounded"></label>
@@ -1747,6 +1830,7 @@ export default function PatientDetailsComplete({ patient }) {
 
   return (
     <div 
+      ref={containerRef}
       dangerouslySetInnerHTML={{ __html: htmlContent }}
       style={{ width: '100%', height: '100%' }}
     />
