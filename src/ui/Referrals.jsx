@@ -224,7 +224,7 @@ export default function Referrals(){
         <div style={{overflowX:'auto'}}>
           <table style={{width:'100%', fontSize:16, borderCollapse:'collapse'}}>
             <thead>
-              <tr style={{textTransform:'uppercase', fontSize:14, color:'#374151', background:'#f8fafc'}}>
+              <tr style={{textTransform:'uppercase', fontSize:16, color:'#374151', background:'#f8fafc'}}>
                 {['Patient Name','Status','Clinware Rating','Facility Name','Daily Profit','Admissible','Processed Date','Actions'].map((h,i)=> (
                   <th key={i} style={{padding:'12px 16px', textAlign:'left'}}>{h}</th>
                 ))}
@@ -236,10 +236,10 @@ export default function Referrals(){
                   <td style={{padding:'12px 16px', fontWeight:600, color:'#1f2937'}}>
                     <button 
                       className="btn" 
-                      style={{padding:0, border:'none', background:'transparent', color:'#095d7e', cursor: 'pointer'}}
+                      style={{padding:0, border:'none', background:'transparent', color:'#095d7e', cursor: 'pointer', fontWeight:600}}
                       onClick={() => handlePatientClick(r)}
                     > 
-                      {r.name} 
+                    <span style={{fontSize:16}}>{r.name}</span> 
                     </button>
                   </td>
                   <td style={{padding:'12px 16px'}}>{r.status}</td>
