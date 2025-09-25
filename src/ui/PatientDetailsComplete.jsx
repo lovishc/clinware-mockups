@@ -41,33 +41,57 @@ export default function PatientDetailsComplete({ patient }) {
         customizeBtn.addEventListener('click', handleCustomizeClick)
         document.addEventListener('click', handleClickOutside)
 
-        // Handle card toggles
+        // Handle card toggles with local storage persistence
+        const LOCAL_STORAGE_KEY = 'clinware-visible-cards';
         const cardToggles = container.querySelectorAll('#customize-menu input[type="checkbox"]');
         const toggleListeners = [];
 
+        // Function to save current state to local storage
+        const saveCardSettings = () => {
+            const settings = {};
+            cardToggles.forEach(t => {
+                settings[t.dataset.card] = t.checked;
+            });
+            localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(settings));
+        };
+
+        // Load settings and apply them
+        const savedSettings = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
+
         cardToggles.forEach(toggle => {
-          const cardKey = toggle.dataset.card;
-          const card = container.querySelector('#card-' + cardKey);
-          
-          if (card && !card.classList.contains('hidden')) {
-              toggle.checked = true;
-          }
-
-          const handleChange = () => {
+            const cardKey = toggle.dataset.card;
+            const card = container.querySelector('#card-' + cardKey);
             const tabButton = container.querySelector('#tab-' + cardKey);
-            // const tabContent = container.querySelector('#content-' + cardKey);
-
-            if (card) {
-              card.classList.toggle('hidden', !toggle.checked);
+            
+            // Determine initial state
+            let isVisible;
+            if (savedSettings) {
+                isVisible = savedSettings[cardKey] ?? true; // Default to visible if new card
+            } else {
+                isVisible = card ? !card.classList.contains('hidden') : true;
             }
-            if (tabButton) {
-              tabButton.classList.toggle('hidden', !toggle.checked);
-            }
-          };
 
-          toggle.addEventListener('change', handleChange);
-          toggleListeners.push({ toggle, handleChange });
+            // Apply state to DOM
+            toggle.checked = isVisible;
+            if (card) card.classList.toggle('hidden', !isVisible);
+            if (tabButton) tabButton.classList.toggle('hidden', !isVisible);
+
+            // Add change listener
+            const handleChange = () => {
+                const isChecked = toggle.checked;
+                if (card) card.classList.toggle('hidden', !isChecked);
+                if (tabButton) tabButton.classList.toggle('hidden', !isChecked);
+                saveCardSettings();
+            };
+
+            toggle.addEventListener('change', handleChange);
+            toggleListeners.push({ toggle, handleChange });
         });
+
+        // If no settings were saved previously, save the initial state now
+        if (!savedSettings) {
+            saveCardSettings();
+        }
 
         return () => {
           customizeBtn.removeEventListener('click', handleCustomizeClick)
