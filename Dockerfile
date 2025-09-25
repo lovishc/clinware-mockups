@@ -1,6 +1,11 @@
 # Stage 1: Build the React app
 FROM node:18-alpine as builder
 WORKDIR /app
+
+# Add an argument for the API key and create the .env file
+ARG VITE_GOOGLE_MAPS_API_KEY
+RUN echo "VITE_GOOGLE_MAPS_API_KEY=${VITE_GOOGLE_MAPS_API_KEY}" > .env
+
 COPY package*.json ./
 RUN npm install
 COPY . .
